@@ -1,0 +1,24 @@
+<fp-container>
+  <fp-breadcrumbs [items]="items" />
+  <fp-page-title [title]="title" />
+
+  <div class="flex flex-col tablet:flex-row desktop:flex-row gap-10">
+    <div class="tablet:w-2/3 desktop:w-2/3 flex flex-col">
+      <div class="flex flex-col tablet:flex-row desktop:flex-row flex-wrap gap-3 my-8">
+        @for (cat of categories(); track cat.id) {
+          <fp-plain-button
+            [label]="cat.title"
+            className="{{
+              cat.isActive
+                ? 'bg-orange text-white hover:bg-active-orange border-orange hover:border-active-orange'
+                : 'text-orange bg-transparent hover:border-orange'
+            }}  border border-grey-strok"
+            (click)="handleSortBtn(cat.id)"
+          />
+        } @empty {
+          <p>Загружается...</p>
+        }
+      </div>
+    </div>
+  </div>
+</fp-container>
