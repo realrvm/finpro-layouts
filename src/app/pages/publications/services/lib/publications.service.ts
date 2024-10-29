@@ -3,7 +3,7 @@ import { map, Observable } from 'rxjs'
 
 import { ApiService } from '@fp/core'
 
-import { PublicationsCategory } from '../../common'
+import type { PublicationsCategory, PublicationsPost } from '../../common'
 
 @Injectable()
 export class PublicationsService {
@@ -17,5 +17,9 @@ export class PublicationsService {
         }),
       ),
     )
+  }
+
+  public getPosts(): Observable<PublicationsPost[]> {
+    return this.apiService.get('api/v1/publications/post/')
   }
 }

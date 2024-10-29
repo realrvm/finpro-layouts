@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common'
+import { CommonModule, NgOptimizedImage } from '@angular/common'
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal } from '@angular/core'
 
-import type { PublicationsCategory } from '@fp/pages/publications/common'
+import type { PublicationsCategory, PublicationsPost } from '@fp/pages/publications/common'
 import { PublicationsService } from '@fp/pages/publications/services'
 import { BreadcrumbsComponent } from '@fp/ui/breadcrumbs'
 import { PlainButtonComponent } from '@fp/ui/buttons'
@@ -11,7 +11,14 @@ import { PageTitleComponent } from '@fp/ui/page-title'
 @Component({
   selector: 'fp-publications',
   standalone: true,
-  imports: [CommonModule, ContainerComponent, BreadcrumbsComponent, PageTitleComponent, PlainButtonComponent],
+  imports: [
+    CommonModule,
+    ContainerComponent,
+    BreadcrumbsComponent,
+    PageTitleComponent,
+    PlainButtonComponent,
+    NgOptimizedImage,
+  ],
   templateUrl: './publications.component.html',
   styles: `
     :host {
@@ -26,9 +33,12 @@ export class PublicationsComponent implements OnInit {
 
   private readonly publicationsService = inject(PublicationsService)
   public categories: WritableSignal<PublicationsCategory[]> = signal([])
+  public posts: WritableSignal<PublicationsPost[]> = signal([])
 
   ngOnInit(): void {
-    this.publicationsService.getCategories().subscribe((data) => this.categories.set(data))
+    this.publicationsService.getCategories().subscribe((cat) => this.categories.set(cat))
+
+    this.publicationsService.getPosts().subscribe((post) => this.posts.set(post))
   }
 
   public handleSortBtn(id: number): void {

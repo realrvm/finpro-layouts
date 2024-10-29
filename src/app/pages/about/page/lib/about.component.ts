@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common'
-import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
 
+import { SaveHtmlPipe } from '@fp/core'
+import { AboutService } from '@fp/pages/about/services'
 import { BreadcrumbsComponent } from '@fp/ui/breadcrumbs'
 import { ContainerComponent } from '@fp/ui/container'
 import { PageTitleComponent } from '@fp/ui/page-title'
@@ -8,7 +10,7 @@ import { PageTitleComponent } from '@fp/ui/page-title'
 @Component({
   selector: 'fp-about',
   standalone: true,
-  imports: [CommonModule, ContainerComponent, BreadcrumbsComponent, PageTitleComponent],
+  imports: [CommonModule, ContainerComponent, BreadcrumbsComponent, PageTitleComponent, SaveHtmlPipe],
   templateUrl: './about.component.html',
   styles: `
     :host {
@@ -20,4 +22,8 @@ import { PageTitleComponent } from '@fp/ui/page-title'
 export class AboutComponent {
   public readonly items = [{ route: '/', label: 'Главная' }, { label: 'О проекте' }]
   public readonly title = 'О проекте'
+
+  private readonly aboutService = inject(AboutService)
+
+  public readonly aboutData = this.aboutService.aboutData
 }
