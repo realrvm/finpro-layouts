@@ -7,6 +7,8 @@ import { BreadcrumbsComponent } from '@fp/ui/breadcrumbs'
 import { PlainButtonComponent } from '@fp/ui/buttons'
 import { ContainerComponent } from '@fp/ui/container'
 import { PageTitleComponent } from '@fp/ui/page-title'
+import { SearchInputComponent } from '@fp/ui/search-input'
+import { SubscriptionFormComponent } from '@fp/ui/subscription-form'
 
 @Component({
   selector: 'fp-publications',
@@ -18,6 +20,8 @@ import { PageTitleComponent } from '@fp/ui/page-title'
     PageTitleComponent,
     PlainButtonComponent,
     NgOptimizedImage,
+    SearchInputComponent,
+    SubscriptionFormComponent,
   ],
   templateUrl: './publications.component.html',
   styles: `
@@ -34,11 +38,16 @@ export class PublicationsComponent implements OnInit {
   private readonly publicationsService = inject(PublicationsService)
   public categories: WritableSignal<PublicationsCategory[]> = signal([])
   public posts: WritableSignal<PublicationsPost[]> = signal([])
+  public mainNews: WritableSignal<PublicationsPost[]> = signal([])
 
   ngOnInit(): void {
     this.publicationsService.getCategories().subscribe((cat) => this.categories.set(cat))
 
-    this.publicationsService.getPosts().subscribe((post) => this.posts.set(post))
+    this.publicationsService.getPosts().subscribe((posts) => {
+      const mainNewsPosts = posts.filter((post) => post.category.title === 'Главные новости')
+      this.mainNews.set(mainNewsPosts)
+      this.posts.set(posts)
+    })
   }
 
   public handleSortBtn(id: number): void {

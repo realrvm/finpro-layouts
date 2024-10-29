@@ -36,6 +36,7 @@
       "@fp/ui/breadcrumbs": ["src/app/ui/breadcrumbs/index.ts"],
       "@fp/ui/page-title": ["src/app/ui/page-title/index.ts"],
       "@fp/ui/search-input": ["src/app/ui/search-input/index.ts"],
+      "@fp/ui/subscription-form": ["src/app/ui/subscription-form/index.ts"],
       "@fp/pages/main": ["src/app/pages/main/page/index.ts"],
       "@fp/pages/main/widgets": ["src/app/pages/main/ui/widgets/index.ts"],
       "@fp/pages/services-for-business": ["src/app/pages/services-for-business/index.ts"],
