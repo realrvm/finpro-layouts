@@ -6,8 +6,19 @@ import { PublicationsService } from '@fp/pages/publications/services'
 export const publicationsRoutes: Routes = [
   {
     path: PATHS.publications,
-    title: 'Публикации',
     providers: [PublicationsService],
-    loadComponent: () => import('@fp/pages/publications').then((m) => m.PublicationsComponent),
+    children: [
+      { path: '', redirectTo: 'main', pathMatch: 'full' },
+      {
+        path: 'main',
+        title: 'Публикации',
+        loadComponent: () => import('@fp/pages/publications').then((m) => m.PublicationsComponent),
+      },
+      {
+        path: ':id',
+        title: 'Публикация',
+        loadComponent: () => import('@fp/pages/publications').then((m) => m.PublicationComponent),
+      },
+    ],
   },
 ]

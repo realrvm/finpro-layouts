@@ -29,6 +29,7 @@
               publicationsPost;
               context: {
                 $implicit: post.title,
+                id: post.id,
                 section: post.tags[0],
                 subtitle: post.subtitle,
                 image: post.image || 'https://placehold.co/600x400',
@@ -67,8 +68,16 @@
   </div>
 </fp-container>
 
-<ng-template #publicationsPost let-title let-date="date" let-tag="tag" let-subtitle="subtitle" let-image="image">
-  <div class="bg-white flex flex-col pb-10">
+<ng-template
+  #publicationsPost
+  let-title
+  let-id="id"
+  let-date="date"
+  let-tag="tag"
+  let-subtitle="subtitle"
+  let-image="image"
+>
+  <div class="bg-white flex flex-col pb-10 cursor-pointer" (click)="goToPost(id)" (keypress)="goToPost(id)" tabindex="0">
     <div class="h-[239px] w-full relative mb-4">
       <img [ngSrc]="image" alt="search result" class="object-cover" fill priority />
     </div>

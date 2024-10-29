@@ -26,14 +26,14 @@ import { PlainButtonComponent } from '@fp/ui/buttons'
         />
         <div class="flex tablet:flex-wrap items-center justify-between gap-3">
           <div class="flex items-center gap-2">
-            <p-checkbox formControlName="agree" value="true" />
+            <p-checkbox formControlName="consent" value="true" />
             <span class="text-[10px] text-grey-indicator"
               >Соглашаюсь с <a href="/privacy-policy" class="text-blue">политикой конфиденциальности</a></span
             >
           </div>
           <fp-plain-button
             label="Подписаться"
-            className="bg-orange text-white hover:bg-active-orange h-10 tablet:w-full"
+            className="bg-orange text-white hover:bg-active-orange disabled:bg-active-orange h-10 tablet:w-full"
             (click)="handleSubscriptionClick()"
           />
         </div>
@@ -69,7 +69,7 @@ import { PlainButtonComponent } from '@fp/ui/buttons'
 export class SubscriptionFormComponent {
   public form = new FormGroup({
     email: new FormControl(''),
-    agree: new FormControl(false),
+    consent: new FormControl(false),
   })
 
   public handleSubscriptionClick() {

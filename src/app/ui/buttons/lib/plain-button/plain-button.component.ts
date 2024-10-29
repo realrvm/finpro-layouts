@@ -21,5 +21,6 @@ import { ButtonModule } from 'primeng/button'
 })
 export class PlainButtonComponent {
   public label = input.required<string>()
+  public disabled = input<boolean>(false)
   public className = input<string>('')
 }

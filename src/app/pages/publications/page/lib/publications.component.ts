@@ -1,5 +1,6 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common'
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal, WritableSignal } from '@angular/core'
+import { Router } from '@angular/router'
 
 import type { PublicationsCategory, PublicationsPost } from '@fp/pages/publications/common'
 import { PublicationsService } from '@fp/pages/publications/services'
@@ -36,6 +37,8 @@ export class PublicationsComponent implements OnInit {
   public readonly title = 'Публикации'
 
   private readonly publicationsService = inject(PublicationsService)
+  private readonly router = inject(Router)
+
   public categories: WritableSignal<PublicationsCategory[]> = signal([])
   public posts: WritableSignal<PublicationsPost[]> = signal([])
   public mainNews: WritableSignal<PublicationsPost[]> = signal([])
@@ -59,5 +62,9 @@ export class PublicationsComponent implements OnInit {
         return { ...btn, isActive: false }
       })
     })
+  }
+
+  public goToPost(id: string): void {
+    this.router.navigate([`/publications/${id}`])
   }
 }

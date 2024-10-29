@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core'
+import { toSignal } from '@angular/core/rxjs-interop'
 import { map, Observable } from 'rxjs'
 
 import { ApiService } from '@fp/core'
@@ -22,4 +23,6 @@ export class PublicationsService {
   public getPosts(): Observable<PublicationsPost[]> {
     return this.apiService.get('api/v1/publications/post/')
   }
+
+  public posts = toSignal(this.getPosts(), { initialValue: [] })
 }
